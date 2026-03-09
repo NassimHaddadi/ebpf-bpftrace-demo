@@ -1,5 +1,4 @@
 #!/usr/bin/env bpftrace
-
 BEGIN {
     printf("Monitoring CPU usage per process... Ctrl+C to stop\n");
 }

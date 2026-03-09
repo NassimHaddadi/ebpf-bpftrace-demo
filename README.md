@@ -20,24 +20,28 @@ sudo ./opensnoop.bt
 
 **Description**
 Cette démo trace tous les fichiers ouverts par les programmes en temps réel.
-Elle affiche le PID, le nom du programme, le FD (file descriptor) et le chemin du fichier ouvert.
+Elle affiche le PID, le nom du programme et le chemin du fichier ouvert.
 
 **Exemple de sortie**
-2196 nano 3 /etc/ld.so.cache
-12196 nano 3 /usr/lib/x86_64-linux-gnu/libncursesw.so.6
-12196 nano 3 /usr/lib/x86_64-linux-gnu/libc.so.6
+2196 nano /etc/ld.so.cache
+12196 nano /usr/lib/x86_64-linux-gnu/libncursesw.so.6
+12196 nano /usr/lib/x86_64-linux-gnu/libc.so.6
 ...
 
-## Démo 3 – CPU Usage Monitor
+## Démo 3 – cpu_usage
 **Commande à exécuter**
 sudo ./cpu_usage.bt
 
 **Description**
-Cette démo surveille l’utilisation CPU approximative de chaque processus en temps réel.
-Elle affiche pour chaque processus le nombre de fois où il a été planifié sur le CPU chaque seconde.
+Cette démo montre l'utilisation approximative du CPU par processus en temps réel.
+Elle affiche le nom du processus et le nombre d'occurrences dans le scheduler.
 
 **Exemple de sortie**
-{ "bash": 12, "nano": 3, "xfce4-panel": 5, "bpftrace": 1 }
+=== CPU usage per process (approx) ===
+bash: 5
+nano: 2
+firefox: 10
+...
 
 ## Instructions pour exécuter
 1. Ouvrir un terminal et naviguer dans le dossier du projet.
@@ -48,6 +52,5 @@ Elle affiche pour chaque processus le nombre de fois où il a été planifié su
 ## Explications
 - **execsnoop.bt** : Surveille l’exécution des programmes (execve), utile pour voir quels programmes se lancent.
 - **opensnoop.bt** : Surveille les fichiers ouverts par tous les programmes, pratique pour déboguer ou comprendre l’accès aux fichiers.
-- **cpu_usage.bt** : Surveille l’utilisation CPU approximative par processus en temps réel. Affiche combien de fois chaque processus a été planifié sur le CPU chaque seconde. Très utile pour visualiser quels programmes consomment le plus de CPU à un instant donné.
+- **cpu_usage.bt** : Montre l’utilisation approximative du CPU par processus en temps réel.
 
-Ces démos montrent la puissance d’eBPF pour monitorer le système sans modifier le noyau et en temps réel.
