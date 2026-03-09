@@ -28,6 +28,17 @@ Elle affiche le PID, le nom du programme, le FD (file descriptor) et le chemin d
 12196 nano 3 /usr/lib/x86_64-linux-gnu/libc.so.6
 ...
 
+## Démo 3 – CPU Usage Monitor
+**Commande à exécuter**
+sudo ./cpu_usage.bt
+
+**Description**
+Cette démo surveille l’utilisation CPU approximative de chaque processus en temps réel.
+Elle affiche pour chaque processus le nombre de fois où il a été planifié sur le CPU chaque seconde.
+
+**Exemple de sortie**
+{ "bash": 12, "nano": 3, "xfce4-panel": 5, "bpftrace": 1 }
+
 ## Instructions pour exécuter
 1. Ouvrir un terminal et naviguer dans le dossier du projet.
 2. Lancer chaque démo avec les commandes indiquées ci-dessus.
@@ -37,5 +48,6 @@ Elle affiche le PID, le nom du programme, le FD (file descriptor) et le chemin d
 ## Explications
 - **execsnoop.bt** : Surveille l’exécution des programmes (execve), utile pour voir quels programmes se lancent.
 - **opensnoop.bt** : Surveille les fichiers ouverts par tous les programmes, pratique pour déboguer ou comprendre l’accès aux fichiers.
+- **cpu_usage.bt** : Surveille l’utilisation CPU approximative par processus en temps réel. Affiche combien de fois chaque processus a été planifié sur le CPU chaque seconde. Très utile pour visualiser quels programmes consomment le plus de CPU à un instant donné.
 
 Ces démos montrent la puissance d’eBPF pour monitorer le système sans modifier le noyau et en temps réel.

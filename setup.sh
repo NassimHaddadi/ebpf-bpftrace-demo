@@ -88,6 +88,28 @@ Elle affiche le PID, le nom du programme, le FD (file descriptor) et le chemin d
 12196 nano 3 /usr/lib/x86_64-linux-gnu/libc.so.6
 ...
 
+## Démo " - cpu-usage
+# cpu_usage.bt
+cat << 'EOF' > cpu_usage.bt
+#!/usr/bin/env bpftrace
+
+BEGIN {
+    printf("Monitoring CPU usage per process... Ctrl+C to stop\n");
+}
+
+tracepoint:sched:sched_switch {
+    @cpu[comm] = @cpu[comm] + 1;
+}
+
+interval:s:1 {
+    printf("\n=== CPU usage per process (approx) ===\n");
+    print(@cpu);
+    clear(@cpu);
+}
+EOF
+
+chmod +x cpu_usage.bt
+
 ## Instructions pour exécuter
 1. Ouvrir un terminal et naviguer dans le dossier du projet.
 2. Lancer chaque démo avec les commandes indiquées ci-dessus.
