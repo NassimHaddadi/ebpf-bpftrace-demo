@@ -1,3 +1,63 @@
+#!/bin/bash
+
+# === Création des fichiers de démos ===
+
+# execsnoop.bt
+cat << 'EOF' > execsnoop.bt
+#!/usr/bin/env bpftrace
+tracepoint:syscalls:sys_enter_execve
+{
+    printf("%d  %s\n", pid, comm);
+}
+EOF
+
+chmod +x execsnoop.bt
+
+# opensnoop.bt
+cat << 'EOF' > opensnoop.bt
+#!/usr/bin/env bpftrace
+tracepoint:syscalls:sys_enter_openat
+{
+    printf("%d  %s  %d  %s\n", pid, comm, args->fd, str(args->filename));
+}
+EOF
+
+chmod +x opensnoop.bt
+
+# README.md complet
+cat << 'EOF' > README.md
+# eBPF / BPFtrace Demo
+
+## Démo 1 – execsnoop
+**Commande à exécuter**
+#!/bin/bash
+
+# === Création des fichiers de démos ===
+
+# execsnoop.bt
+cat << 'EOF' > execsnoop.bt
+#!/usr/bin/env bpftrace
+tracepoint:syscalls:sys_enter_execve
+{
+    printf("%d  %s\n", pid, comm);
+}
+EOF
+
+chmod +x execsnoop.bt
+
+# opensnoop.bt
+cat << 'EOF' > opensnoop.bt
+#!/usr/bin/env bpftrace
+tracepoint:syscalls:sys_enter_openat
+{
+    printf("%d  %s  %d  %s\n", pid, comm, args->fd, str(args->filename));
+}
+EOF
+
+chmod +x opensnoop.bt
+
+# README.md complet
+cat << 'EOF' > README.md
 # eBPF / BPFtrace Demo
 
 ## Démo 1 – execsnoop
@@ -39,3 +99,6 @@ Elle affiche le PID, le nom du programme, le FD (file descriptor) et le chemin d
 - **opensnoop.bt** : Surveille les fichiers ouverts par tous les programmes, pratique pour déboguer ou comprendre l’accès aux fichiers.
 
 Ces démos montrent la puissance d’eBPF pour monitorer le système sans modifier le noyau et en temps réel.
+EOF
+
+echo "Tous les fichiers ont été créés avec succès !"
