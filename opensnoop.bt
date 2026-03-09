@@ -1,5 +1,5 @@
 #!/usr/bin/env bpftrace
 tracepoint:syscalls:sys_enter_openat
 {
-    printf("%d  %s  %d  %s\n", pid, comm, args->fd, str(args->filename));
+    printf("%d  %s  %s\n", pid, comm, str(args->filename));
 }
